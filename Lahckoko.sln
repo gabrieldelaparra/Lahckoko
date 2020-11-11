@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30709.132
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lahckoko.Core", "Lahckoko.Core\Lahckoko.Core.csproj", "{C9D56440-C625-413E-BF86-AE56455306BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lahckoko.Core", "Lahckoko.Core\Lahckoko.Core.csproj", "{C9D56440-C625-413E-BF86-AE56455306BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lahckoko.Blazor", "Lahckoko.Blazor\Lahckoko.Blazor.csproj", "{56934ECF-B4C9-49AC-992B-D08060E682FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lahckoko.Blazor", "Lahckoko.Blazor\Lahckoko.Blazor.csproj", "{56934ECF-B4C9-49AC-992B-D08060E682FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

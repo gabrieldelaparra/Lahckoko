@@ -1,0 +1,40 @@
+﻿html,
+body {
+    background-color: #F7E9E6;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    /* This centers our sketch horizontally. */
+    justify-content: center;
+    /* This centers our sketch vertically. */
+    align-items: center;
+}
+
+#canvasDiv {
+    display: block;
+}
+
+.footer {
+    // width: 100%;
+    display: block;
+    color: black;
+}
+
+a:link {
+    color: gray;
+}
+
+a:visited {
+    color: black;
+}
+
+a:hover {
+    color: hotpink;
+}
+
+a:active {
+    color: hotpink;
+}

@@ -1,0 +1,19 @@
+﻿@page "/bloom"
+@inject IJSRuntime JS;
+
+
+<h3>bloom</h3>
+
+<div id="wrapper">
+    <div id="canvasDiv" />
+    <div class="footer" />
+</div>
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) {
+            await JS.InvokeAsync<string>("setup");
+            await JS.InvokeAsync<string>("draw");
+        }
+    }
+}
