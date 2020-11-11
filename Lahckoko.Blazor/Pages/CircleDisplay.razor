@@ -1,0 +1,52 @@
+﻿@page "/"
+@inject IJSRuntime JS;
+
+<h3>CircleDisplay</h3>
+
+<div id="wrapper">
+    <div id="canvasDiv" />
+    <div class="footer" />
+</div>
+
+
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Task.WaitAll(JS.InvokeVoidAsync("setPoints", points).AsTask());
+            Task.WaitAll(JS.InvokeVoidAsync("setup").AsTask());
+            //Setear las variables: enviarselas al JS
+            //DateRange
+            //Data
+            Task.WaitAll(JS.InvokeVoidAsync("draw").AsTask());
+        }
+        else
+        {
+        }
+    }
+
+    private List<Point> points = new List<Point> {
+        new Point(-767.937, -247.274),
+        new Point(-415.750, -663.172),
+        new Point(84.062, -880.411),
+        new Point(628.414, -854.185),
+        new Point(1105.029, -589.903),
+        new Point(1415.602, -142.074),
+        new Point(1496.078, 396.933),
+        new Point(1329.857, 915.949),
+        new Point(951.223, 1307.922)
+    };
+
+    public class Point
+    {
+        public Point(double x, double y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+        public double x { get; set; }
+        public double y { get; set; }
+    }
+}

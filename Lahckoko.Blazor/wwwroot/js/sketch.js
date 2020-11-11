@@ -587,6 +587,10 @@ function doubleClicked() {
   currentDt = Date.now() / 1000;
 }
 
+function loadData(data) {
+
+}
+
 function getDates() {
   sunriseDt = Date.parse(new Date("2019-04-16 08:00:00")) / 1000;
   sunsetDt = Date.parse(new Date("2019-04-15 18:00:00")) / 1000;
@@ -604,6 +608,7 @@ function setup() {
   currentDt = Date.now() / 1000;
   _height = 600;
   _width = 600;
+  background(255, 200, 255);
 }
 
 function dtToRadians(dt) {
@@ -614,7 +619,7 @@ function draw() {
 
   getDates();
   //currentDt = Date.parse(new Date("2019-04-15 " + todayDate.getHours() + ":" + todayDate.getMinutes() + ":" + todayDate.getSeconds())) / 1000;
-  background(155, 237, 255);
+  //background(155, 237, 255);
   // p = currentTime.getSeconds();
   //noStroke();
   stroke(201, 104, 150);
@@ -633,24 +638,60 @@ function draw() {
 
   fill(162, 216, 250, 80);
   // stroke(162, 216, 250, 5);
-  drawNight();
+  drawTriangleFan(points);
+  //drawNight();
   // strokeWeight(1);
   stroke(140);
   line(_width / 2, _height / 2, _width / 2, 0);
 }
 
-function drawNight() {
+var points;
 
-  beginShape(TRIANGLE_FAN);
-  vertex(_width / 2, _height / 2);
-  for (i = 0; i <= 8; i++) {
-    let radians = dtToRadians(lerp(sunsetDt, sunriseDt, i / 8));
-    var x = _width / 2 + cos(radians) * _height * 2;
-    var y = _height / 2 + sin(radians) * _height * 2;
-    vertex(x, y);
-  }
-  endShape();
+function setPoints(_points) {
+    //console.log("points:"+_points);
+    points = _points;
+    //console.log(points[0].x + ";" + points[0].y);
 }
+
+function drawTriangleFan(_points) {
+    if (_points == null || !Array.isArray(_points) || _points.length < 8) {
+        console.log("Is Null");
+        return;
+    }
+
+    beginShape(TRIANGLE_FAN);
+    vertex(_width / 2, _height / 2);
+    for (i = 0; i <= 8; i++) {
+        console.log("global:"+points[i].x + ";" + points[i].y);
+        console.log("local:"+_points[i].x + ";" + _points[i].y);
+        //var x=_points[i].x;
+        //var y=_points[i].y;
+        //vertex(x, y);
+        if (_points[i] == null|| _points[i].x == null || _points[i].y == null ) 
+            return;
+
+        vertex(_points[i].x, _point[i].y);
+        //let radians = dtToRadians(lerp(sunsetDt, sunriseDt, i / 8));
+        //var x = _width / 2 + cos(radians) * _height * 2;
+        //var y = _height / 2 + sin(radians) * _height * 2;
+        //vertex(x, y);
+    }
+    endShape();
+}
+
+//function drawNight() {
+
+//  beginShape(TRIANGLE_FAN);
+//  vertex(_width / 2, _height / 2);
+//  for (i = 0; i <= 8; i++) {
+//    let radians = dtToRadians(lerp(sunsetDt, sunriseDt, i / 8));
+//    var x = _width / 2 + cos(radians) * _height * 2;
+//    var y = _height / 2 + sin(radians) * _height * 2;
+//    console.log("x:" + x + ";y:" + y);
+//    vertex(x, y);
+//  }
+//  endShape();
+//}
 
 function FtoC(temp) {
   return round((temp - 273.0) * 10) / 10;

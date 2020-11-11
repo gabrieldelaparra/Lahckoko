@@ -7,4 +7,9 @@
   <ItemGroup>
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <!-- extends watching group to include *.js files -->
+    <Watch Include="**\*.js; **\*.css" Exclude="**\*.js.map;obj\**\*;bin\**\*" />
+  </ItemGroup>
 </Project>
