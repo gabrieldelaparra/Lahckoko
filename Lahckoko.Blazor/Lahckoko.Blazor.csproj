@@ -12,4 +12,10 @@
     <!-- extends watching group to include *.js files -->
     <Watch Include="**\*.js; **\*.css" Exclude="**\*.js.map;obj\**\*;bin\**\*" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\js\d3CircleDisplay.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\js\d3CircleDisplay.js" />
+  </ItemGroup>
 </Project>

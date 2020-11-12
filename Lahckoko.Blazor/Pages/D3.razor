@@ -1,12 +1,21 @@
-﻿@page "/"
+﻿@page "/d3"
 @inject IJSRuntime JS;
 
-<h3>CircleDisplay</h3>
+<h3>Component1</h3>
+<style>
+    body {
+        margin: 0;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
 
-<div id="wrapper">
-    <div id="canvasDiv" />
-    <div class="footer" />
-</div>
+    polygon {
+        fill: CadetBlue
+    }
+</style>
 
 
 
@@ -15,17 +24,10 @@
     {
         if (firstRender)
         {
-            //Setear las variables: enviarselas al JS
-            //DateRange
-            //Data
-            await JS.InvokeVoidAsync("setPoints", points);
-            await JS.InvokeVoidAsync("setup");
-            await JS.InvokeVoidAsync("draw");
+            await JS.InvokeVoidAsync("d3Draw", points);
         }
     }
-
     private List<Point> points = new List<Point> {
-        new Point(0.0,0.0),
         new Point(-767.937, -247.274),
         new Point(-415.750, -663.172),
         new Point(84.062, -880.411),
