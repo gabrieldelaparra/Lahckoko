@@ -1,8 +1,8 @@
 ﻿function d3Draw(poly) {
 
-    var margin = { top: 20, right: 20, bottom: 30, left: 50 },
-        width = 600 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+    var margin = { top: 20, right: 20, bottom: 30, left: 50 };
+    var width = 600 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
 
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
