@@ -13,7 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <Watch Remove="Pages\D3.razor.css" />
-    <Watch Remove="wwwroot\js\location.js" />
+    <Watch Remove="wwwroot\js\geoLocation.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\js\d3CircleDisplay.js" />

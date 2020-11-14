@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Lahckoko.Blazor.Models;
 
-namespace Lahckoko.Blazor.Services
+namespace Lahckoko.Blazor.Services.GeoLocation
 {
     public interface IGeoLocationService
     {

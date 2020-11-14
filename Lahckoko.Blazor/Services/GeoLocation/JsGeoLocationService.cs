@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Lahckoko.Blazor.Models;
 using Microsoft.JSInterop;
 
-namespace Lahckoko.Blazor.Services
+namespace Lahckoko.Blazor.Services.GeoLocation
 {
     public class JsGeoLocationService : IGeoLocationService
     {
+        private static readonly IDictionary<Guid, TaskCompletionSource<Location>> PendingRequests =
+            new Dictionary<Guid, TaskCompletionSource<Location>>();
+
         private readonly IJSRuntime _jSRuntime;
-        private static readonly IDictionary<Guid, TaskCompletionSource<Location>> PendingRequests = new Dictionary<Guid, TaskCompletionSource<Location>>();
 
         public JsGeoLocationService(IJSRuntime jSRuntime)
         {
@@ -34,12 +36,7 @@ namespace Lahckoko.Blazor.Services
             var idVal = Guid.Parse(requestId);
             var pendingTask = PendingRequests.First(x => x.Key == idVal).Value;
 
-            var location = new Location
-            {
-                Latitude = latitude,
-                Longitude = longitude,
-                Accuracy = accuracy,
-            };
+            var location = new Location(latitude, longitude, accuracy);
             pendingTask.SetResult(location);
         }
     }
