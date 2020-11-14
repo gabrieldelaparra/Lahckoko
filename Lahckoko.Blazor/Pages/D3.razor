@@ -47,9 +47,9 @@
 
             //const int length = 100;
 
-            //var random = new Random();
-            //var xAxis = Enumerable.Range(0, length).Select(x => ((double)x) / 100 * 2 - 1).ToArray();
-            //var yAxis = Enumerable.Range(0, length).Select(x => random.NextDouble() * 2 - 1).ToArray();
+            var random = new Random();
+            var xAxis = Enumerable.Range(0, length).Select(x => ((double)x) / 100 ).ToArray();
+            var yAxis = Enumerable.Range(0, length).Select(x => random.NextDouble()).ToArray();
 
             //var points = new List<Point>();
             //for (var i = 0; i < length; i++)
