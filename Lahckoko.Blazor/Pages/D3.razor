@@ -46,10 +46,9 @@
 
     private void HandleLocationReceived(Location location)
     {
-        this.Location = location;
+        Location = location;
         StateHasChanged();
     }
-
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

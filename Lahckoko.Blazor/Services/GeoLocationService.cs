@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 
 namespace Lahckoko.Blazor.Services
 {
-    public class GeoLocationService
+    public class GeoLocationService //: IGeoLocationService
     {
         private readonly IJSRuntime _jSRuntime;
 
@@ -17,7 +17,7 @@ namespace Lahckoko.Blazor.Services
 
         public async Task RequestGeoLocation()
         {
-            await _jSRuntime.InvokeVoidAsync("exampleJsFunctions.getLocation");
+            await _jSRuntime.InvokeVoidAsync("geoLocationServiceJS.getLocation");
         }
 
         [JSInvokable]
@@ -30,4 +30,32 @@ namespace Lahckoko.Blazor.Services
             OnLocationReceived?.Invoke(location);
         }
     }
+
+    //public class MockGeoLocationService : IGeoLocationService
+    //{
+    //    public Action<Location> OnLocationReceived { get; set; }
+    //    public void ReceiveGeoLocation(decimal latitude, decimal longitude, decimal accuracy)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    public Task RequestGeoLocation()
+    //    {
+    //        OnLocationReceived?.Invoke(new Location {
+    //            Latitude = 10,
+    //            Longitude = 20,
+    //            Accuracy = 30,
+    //        });
+    //        return null;
+    //    }
+    //}
+
+    //public interface IGeoLocationService
+    //{
+    //    static Action<Location> OnLocationReceived { get; set; }
+
+    //    [JSInvokable]
+    //    void ReceiveGeoLocation(decimal latitude, decimal longitude, decimal accuracy);
+    //    Task RequestGeoLocation();
+    //}
 }
