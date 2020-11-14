@@ -5,15 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\js\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <!-- extends watching group to include *.js files -->
     <Watch Include="**\*.js; **\*.css" Exclude="**\*.js.map;obj\**\*;bin\**\*" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\js\d3CircleDisplay.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Watch Remove="wwwroot\js\location.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\js\d3CircleDisplay.js" />

@@ -12,6 +12,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Lahckoko.Blazor;
+using Microsoft.JSInterop;
+
+//using AspNetMonsters.Blazor.Geolocation;
 
 namespace Lahckoko.Blazor
 {
@@ -31,6 +35,8 @@ namespace Lahckoko.Blazor
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            //services.AddSingleton<IJSRuntime>();
+            services.AddScoped<LocationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

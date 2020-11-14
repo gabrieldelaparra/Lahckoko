@@ -1,7 +1,19 @@
 ﻿@page "/d3"
-@inject IJSRuntime JS;
+@*@using AspNetMonsters.Blazor.Geolocation*@
+@using Lahckoko.Blazor
+@inject LocationService LocationService;
+
+@inject IJSRuntime JsRuntime;
 
 <h3>Component1</h3>
+
+<div>
+    Lat: @Location?.Latitude <br />
+    Long: @Location?.Longitude <br />
+    Accuracy: @Location?.Accuracy <br />
+</div>
+
+
 <style>
     body {
         margin: 0;
@@ -20,11 +32,22 @@
 
 
 @code {
+
+    Location Location {get;set;}
+
+    protected override async Task OnInitializedAsync()
+    {
+        //location = await LocationService.GetLocationAsync();
+        //return base.OnInitializedAsync();
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await JS.InvokeVoidAsync("d3Draw", points);
+            //await JsRuntime.InvokeVoidAsync("d3Draw", points);
+            Location = await LocationService.GetLocationAsync();
+            //location = await LocationService.GetLocationAsync();
         }
     }
     private List<Point> points = new List<Point> {

@@ -16,11 +16,17 @@
             //Setear las variables: enviarselas al JS
             //DateRange
             //Data
-            await JS.InvokeVoidAsync("setPoints", points);
-            await JS.InvokeVoidAsync("setup");
-            await JS.InvokeVoidAsync("draw");
+            //await SetPoints(points);
+            //await JS.InvokeVoidAsync("setPoints", points);
+            //await JS.InvokeVoidAsync("setup");
+            //await JS.InvokeVoidAsync("draw");
         }
     }
+
+    //public async Task SetPoints(object point)
+    //{
+    //    await JS.InvokeVoidAsync("setPoints", points);
+    //}
 
     private List<Point> points = new List<Point> {
         new Point(0.0,0.0),
