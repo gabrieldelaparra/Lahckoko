@@ -1,4 +1,4 @@
-﻿@page "/d3"
+﻿@page "/"
 @inject GeoLocationService GeoLocationService;
 
 @inject IJSRuntime JsRuntime;
@@ -11,25 +11,16 @@
     Accuracy: @Location?.Accuracy <br />
 </div>
 
-
-<style>
-    body {
-        margin: 0;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-    }
-
-    polygon {
-        fill: CadetBlue
-    }
-</style>
-
-
+@*<svg width="@Width" height="@Height" >
+        <polygon points="100,100 100,300 300,300 300,100" onclick="" onmouseover="@MouseOver())" />
+    </svg>*@
 
 @code {
+
+
+
+    private int Width { get; set; } = 500;
+    private int Height { get; set; } = 500;
 
     private Location Location { get; set; }
 
@@ -37,6 +28,13 @@
     {
         base.OnInitialized();
         GeoLocationService.OnLocationReceived = HandleLocationReceived;
+
+        //var list = Enumerable.Range(0, 360).Select(x => random.NextDouble() * 100).ToArray();
+        //var dataRange = Enumerable.Range(0, 360).Select(x => DateTime.Today.AddMinutes(4 * x)).ToArray();
+        //for (int i = 0; i < 360; i++) {
+        //    Values.Add(dataRange[i], list[i]);
+        //}
+        //Values.Select(x=>new Point(x.Key.))
     }
 
     protected override async Task OnInitializedAsync()
@@ -55,20 +53,36 @@
         if (firstRender)
         {
             await GeoLocationService.RequestGeoLocation();
+
+            const int length = 100;
+
+            var random = new Random();
+            var xAxis = Enumerable.Range(0, length).Select(x => ((double)x) / 100 * 2 - 1).ToArray();
+            var yAxis = Enumerable.Range(0, length).Select(x => random.NextDouble() * 2 - 1).ToArray();
+
+            var points = new List<Point>();
+            for (var i = 0; i < length; i++)
+            {
+                points.Add(new Point(xAxis[i], yAxis[i]));
+            }
+
+            await JsRuntime.InvokeVoidAsync("d3DrawFunctionsJS.d3Draw", points);
         }
     }
 
-    private List<Point> points = new List<Point> {
-        new Point(-767.937, -247.274),
-        new Point(-415.750, -663.172),
-        new Point(84.062, -880.411),
-        new Point(628.414, -854.185),
-        new Point(1105.029, -589.903),
-        new Point(1415.602, -142.074),
-        new Point(1496.078, 396.933),
-        new Point(1329.857, 915.949),
-        new Point(951.223, 1307.922)
-    };
+    //private Dictionary<DateTime, double> Values { get; set; }
+
+    //private List<Point> points = new List<Point> {
+    //    new Point(1, -247.274),
+    //    new Point(2, -663.172),
+    //    new Point(3, -880.411),
+    //    new Point(4, -854.185),
+    //    new Point(5, -589.903),
+    //    new Point(6, -142.074),
+    //    new Point(7, 396.933),
+    //    new Point(8, 915.949),
+    //    new Point(9, 1307.922)
+    //};
 
     public class Point
     {
@@ -80,4 +94,11 @@
         public double x { get; set; }
         public double y { get; set; }
     }
+
+    //private object MouseOver()
+    //{
+    //    Console.WriteLine("Over");
+    //    return "null";
+    //}
+
 }

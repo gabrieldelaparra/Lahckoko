@@ -12,6 +12,7 @@
     <Content Remove="wwwroot\js\d3CircleDisplay.js" />
   </ItemGroup>
   <ItemGroup>
+    <Watch Remove="Pages\D3.razor.css" />
     <Watch Remove="wwwroot\js\location.js" />
   </ItemGroup>
   <ItemGroup>

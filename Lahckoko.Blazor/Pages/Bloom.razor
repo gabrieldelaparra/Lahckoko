@@ -4,16 +4,16 @@
 
 <h3>bloom</h3>
 
-<div id="wrapper">
+@*<div id="wrapper">
     <div id="canvasDiv" />
     <div class="footer" />
-</div>
+</div>*@
 @code {
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender) {
-            await JS.InvokeAsync<string>("setup");
-            await JS.InvokeAsync<string>("draw");
+            //await JS.InvokeAsync<string>("setup");
+            //await JS.InvokeAsync<string>("draw");
         }
     }
 }
