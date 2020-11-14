@@ -1,7 +1,5 @@
 ﻿@page "/d3"
-@*@using AspNetMonsters.Blazor.Geolocation*@
-@using Lahckoko.Blazor
-@inject LocationService LocationService;
+@inject GeoLocationService GeoLocationService;
 
 @inject IJSRuntime JsRuntime;
 
@@ -33,23 +31,34 @@
 
 @code {
 
-    Location Location {get;set;}
+    private Location Location { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        GeoLocationService.OnLocationReceived = HandleLocationReceived;
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        //location = await LocationService.GetLocationAsync();
-        //return base.OnInitializedAsync();
+        await base.OnInitializedAsync();
     }
+
+    private void HandleLocationReceived(Location location)
+    {
+        this.Location = location;
+        StateHasChanged();
+    }
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            //await JsRuntime.InvokeVoidAsync("d3Draw", points);
-            Location = await LocationService.GetLocationAsync();
-            //location = await LocationService.GetLocationAsync();
+            await GeoLocationService.RequestGeoLocation();
         }
     }
+
     private List<Point> points = new List<Point> {
         new Point(-767.937, -247.274),
         new Point(-415.750, -663.172),

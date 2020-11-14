@@ -1,4 +1,4 @@
-﻿namespace Lahckoko.Blazor
+﻿namespace Lahckoko.Blazor.Models
 {
     public class Location
     {
