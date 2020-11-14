@@ -1,6 +1,5 @@
 ﻿@page "/"
-@inject GeoLocationService GeoLocationService;
-
+@inject IGeoLocationService GeoLocationService;
 @inject IJSRuntime JsRuntime;
 
 <h3>Component1</h3>
@@ -17,25 +16,10 @@
 
 @code {
 
-
-
     private int Width { get; set; } = 500;
     private int Height { get; set; } = 500;
 
     private Location Location { get; set; }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        GeoLocationService.OnLocationReceived = HandleLocationReceived;
-
-        //var list = Enumerable.Range(0, 360).Select(x => random.NextDouble() * 100).ToArray();
-        //var dataRange = Enumerable.Range(0, 360).Select(x => DateTime.Today.AddMinutes(4 * x)).ToArray();
-        //for (int i = 0; i < 360; i++) {
-        //    Values.Add(dataRange[i], list[i]);
-        //}
-        //Values.Select(x=>new Point(x.Key.))
-    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -50,23 +34,30 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            await GeoLocationService.RequestGeoLocation();
+        if (firstRender) {
+            //var window = await JsRuntime.Window();
+            //var navigator = await window.Navigator();
+            //geolocationWrapper = navigator.Geolocation;
 
-            const int length = 100;
+            //var val = await GeoLocationService.RequestGeoLocationModel();
 
-            var random = new Random();
-            var xAxis = Enumerable.Range(0, length).Select(x => ((double)x) / 100 * 2 - 1).ToArray();
-            var yAxis = Enumerable.Range(0, length).Select(x => random.NextDouble() * 2 - 1).ToArray();
+            //StateHasChanged();
+            Location = await GeoLocationService.GetGeoLocationAsync();
+            StateHasChanged();
 
-            var points = new List<Point>();
-            for (var i = 0; i < length; i++)
-            {
-                points.Add(new Point(xAxis[i], yAxis[i]));
-            }
+            //const int length = 100;
 
-            await JsRuntime.InvokeVoidAsync("d3DrawFunctionsJS.d3Draw", points);
+            //var random = new Random();
+            //var xAxis = Enumerable.Range(0, length).Select(x => ((double)x) / 100 * 2 - 1).ToArray();
+            //var yAxis = Enumerable.Range(0, length).Select(x => random.NextDouble() * 2 - 1).ToArray();
+
+            //var points = new List<Point>();
+            //for (var i = 0; i < length; i++)
+            //{
+            //    points.Add(new Point(xAxis[i], yAxis[i]));
+            //}
+
+            //await JsRuntime.InvokeVoidAsync("d3DrawFunctionsJS.d3Draw", points);
         }
     }
 

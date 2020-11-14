@@ -25,7 +25,7 @@ namespace Lahckoko.Blazor
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            services.AddScoped<GeoLocationService>();
+            services.AddScoped<IGeoLocationService, JsGeoLocationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
