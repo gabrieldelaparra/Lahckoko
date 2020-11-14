@@ -45,7 +45,7 @@
             Location = await GeoLocationService.GetGeoLocationAsync();
             StateHasChanged();
 
-            //const int length = 100;
+            const int length = 100;
 
             var random = new Random();
             var xAxis = Enumerable.Range(0, length).Select(x => ((double)x) / 100 ).ToArray();
