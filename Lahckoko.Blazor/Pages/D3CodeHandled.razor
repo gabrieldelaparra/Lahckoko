@@ -7,9 +7,6 @@
 
 <h3>D3CodeHandled</h3>
 
-@DateTime
-@TempValue
-
 <svg id="d3-svg" width="@Width" height="@Height">
 
 </svg>
@@ -22,8 +19,6 @@
 
 @code {
 
-    private DateTime DateTime { get; set; }
-    private double TempValue { get; set; }
     private TemperaturePoint2D[] TemperaturePoints { get; set; }
 
     public int Width { get; set; } = 500;
@@ -34,18 +29,14 @@
         if (firstRender)
         {
             TemperaturePoints = await TemperatureService.GetTemperatureAsync();
-            var first = TemperaturePoints.First();
-            DateTime = first.X;
-            TempValue = first.Y;
 
-            var dateTimeScale = new DateTimeLinearScale(TemperaturePoints.Select(x=>x.X).ToArray(), new double[] { 0, 1 });
-            var temperatureScale = new LinearScale(new double[] { 0, 20 }, new double[] { 0, 1 });
-
+            var dateTimeScale = new DateTimeLinearScale(TemperaturePoints.Select(x => x.X).ToArray(), new [] { 0.0, 1.0 });
+            var temperatureScale = new LinearScale(new[] { 0, TemperaturePoints.Max(x => x.Y) + 5 }, new [] { 0.0, 1.0 });
             var scaledPoints = TemperaturePoints.Select(p => new Point2D(dateTimeScale.Scale(p.X), temperatureScale.Scale(p.Y))).ToList();
 
-            var xScale = new LinearScale(new double[] { -1, 1 }, new double[] { 0, Width });
-            var yScale = new LinearScale(new double[] { -1, 1 }, new double[] { Height, 0});
-
+            //TODO: Convert to Injectable Transformation or something similar:
+            var xScale = new LinearScale(new [] { -1.0, 1.0 }, new [] { 0.0, Width });
+            var yScale = new LinearScale(new [] { -1.0, 1.0 }, new [] { Height, 0.0 });
             var circularPoints = ToCircular(scaledPoints).Select(p => new Point2D(xScale.Scale(p.X), yScale.Scale(p.Y)));
 
             await JsRuntime.InvokeVoidAsync("d3DrawFunctionsJS.setSvg", "#d3-svg");
