@@ -1,4 +1,7 @@
 ﻿@page "/d3"
+@using Lahckoko.Blazor.Services.GeoLocation
+@using Lahckoko.Core.Models
+@using Lahckoko.Blazor.Models
 @inject IGeoLocationService GeoLocationService;
 @inject IJSRuntime JsRuntime;
 
@@ -45,45 +48,13 @@
             var xAxis = Enumerable.Range(0, length).Select(x => ((double)x) / 100 ).ToArray();
             var yAxis = Enumerable.Range(0, length).Select(x => random.NextDouble()).ToArray();
 
-            //var points = new List<Point>();
-            //for (var i = 0; i < length; i++)
-            //{
-            //    points.Add(new Point(xAxis[i], yAxis[i]));
-            //}
+            var points = new List<Point2D>();
+            for (var i = 0; i < length; i++)
+            {
+                points.Add(new Point2D(xAxis[i], yAxis[i]));
+            }
 
-            //await JsRuntime.InvokeVoidAsync("d3DrawFunctionsJS.d3Draw", points);
+            await JsRuntime.InvokeVoidAsync("d3DrawFunctionsJS.d3Draw", points);
         }
     }
-
-    //private Dictionary<DateTime, double> Values { get; set; }
-
-    //private List<Point> points = new List<Point> {
-    //    new Point(1, -247.274),
-    //    new Point(2, -663.172),
-    //    new Point(3, -880.411),
-    //    new Point(4, -854.185),
-    //    new Point(5, -589.903),
-    //    new Point(6, -142.074),
-    //    new Point(7, 396.933),
-    //    new Point(8, 915.949),
-    //    new Point(9, 1307.922)
-    //};
-
-    public class Point
-    {
-        public Point(double x, double y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-        public double x { get; set; }
-        public double y { get; set; }
-    }
-
-    //private object MouseOver()
-    //{
-    //    Console.WriteLine("Over");
-    //    return "null";
-    //}
-
 }

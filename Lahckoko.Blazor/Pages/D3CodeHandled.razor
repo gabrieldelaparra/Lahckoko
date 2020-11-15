@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Lahckoko.Blazor.Services.Temperature
 @using Lahckoko.Core.Models
 @using Lahckoko.Core.Scale
 @inject IJSRuntime JsRuntime;
@@ -31,38 +32,31 @@
             DateTime = first.X;
             TempValue = first.Y;
 
-            var dateTimeScale = new DateTimeLinearScale(TemperaturePoints.Select(x => x.X).ToArray(), new double[] { 0, 1 });
-            var linearScale = new DoubleLinearScale(new double[] { 0, 20 }, new double[] { 0, 1 });
-            var scaledPoints = TemperaturePoints.Select(x => new D3.Point(dateTimeScale.Scale(x.X), linearScale.Scale(x.Y))).ToList();
+            var dateTimeScale = new DateTimeLinearScale(new[] { TemperaturePoints.Min(x=>x.X), TemperaturePoints.Max(x => x.X) }, new double[] { 0, 1 });
+            var temperatureScale = new LinearScale(new double[] { 0, 20 }, new double[] { 0, 1 });
+
+            var scaledPoints = TemperaturePoints.Select(p => new Point2D(dateTimeScale.Scale(p.X), temperatureScale.Scale(p.Y))).ToList();
+
+            var xScale = new LinearScale(new double[] { -1, 1 }, new double[] { 0, Width });
+            var yScale = new LinearScale(new double[] { -1, 1 }, new double[] { Height, 0});
+
+            var circularPoints = ToCircular(scaledPoints).Select(p => new Point2D(xScale.Scale(p.X), yScale.Scale(p.Y)));
 
             await JsRuntime.InvokeVoidAsync("d3DrawFunctionsJS.setSvg", "#d3-svg");
-
-            //const int length = 100;
-            //var random = new Random();
-            //var xAxis = Enumerable.Range(0, length).Select(x => ((double)x) / 100).ToArray();
-            //var yAxis = Enumerable.Range(0, length).Select(x => 0.3 + random.NextDouble() * 0.7).ToArray();
-
-            //var points = new List<D3.Point>();
-            //for (var i = 0; i < length; i++)
-            //{
-            //    points.Add(new D3.Point(xAxis[i], yAxis[i]));
-            //}
-
-            await JsRuntime.InvokeVoidAsync("d3DrawFunctionsJS.drawPolygon", ToCircular(scaledPoints));
-            //await JsRuntime.InvokeVoidAsync("d3DrawFunctionsJS.drawPolygon", ToCircular(points));
+            await JsRuntime.InvokeVoidAsync("d3DrawFunctionsJS.drawPolygon", circularPoints);
         }
         StateHasChanged();
     }
 
-    public List<D3.Point> ToCircular(List<D3.Point> points)
+    public List<Point2D> ToCircular(List<Point2D> points)
     {
-        var list = new List<D3.Point>();
+        var list = new List<Point2D>();
         foreach (var p in points)
         {
             const double pi = Math.PI;
-            var y = Math.Cos(p.x * 2 * pi) * p.y;
-            var x = Math.Sin(p.x * 2 * pi) * p.y;
-            list.Add(new D3.Point(x, y));
+            var y = Math.Cos(p.X * 2 * pi) * p.Y;
+            var x = Math.Sin(p.X * 2 * pi) * p.Y;
+            list.Add(new Point2D(x, y));
         }
 
         return list;

@@ -15,10 +15,12 @@
     drawPolygon: function (pointsArray) {
 
         //These could even be out of this function, or in the c# code;
-        var xScale = d3.scaleLinear().domain([-1, 1]).range([0, width]);
-        var yScale = d3.scaleLinear().domain([-1, 1]).range([height, 0]);
+        //var xScale = d3.scaleLinear().domain([-1, 1]).range([0, width]);
+        //var yScale = d3.scaleLinear().domain([-1, 1]).range([height, 0]);
 
-        var points = pointsArray.map(p => [xScale(p.x), yScale(p.y)].join(",")).join(" ");
+        var points = pointsArray.map(p => [p.x, p.y].join(",")).join(" ");
+
+        //var points = pointsArray.map(p => [xScale(p.x), yScale(p.y)].join(",")).join(" ");
         svg.append("polygon").attr("points", points);
     },
 
