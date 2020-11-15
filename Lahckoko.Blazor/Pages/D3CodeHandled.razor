@@ -21,7 +21,6 @@
             var random = new Random();
             var xAxis = Enumerable.Range(0, length).Select(x => ((double)x) / 100).ToArray();
             var yAxis = Enumerable.Range(0, length).Select(x => 0.3 + random.NextDouble() * 0.7).ToArray();
-            //var yAxis = Enumerable.Range(0, length).Select(x => ((double)x)/100).ToArray();
 
             var points = new List<D3.Point>();
             for (var i = 0; i < length; i++)
@@ -35,12 +34,6 @@
 
     public List<D3.Point> ToCircular(List<D3.Point> points)
     {
-        var minX = points.Min(x => x.x);
-        var minY = points.Min(x => x.y);
-
-        var maxX = points.Max(x => x.x);
-        var maxY = points.Max(x => x.y);
-
         var list = new List<D3.Point>();
         foreach (var p in points)
         {

@@ -14,19 +14,17 @@
 
     drawPolygon: function (pointsArray) {
 
-        var xScale = d3.scaleLinear().domain([-1,1]).range([0,width]);
-        var yScale = d3.scaleLinear().domain([-1,1]).range([height,0]);
+        var xScale = d3.scaleLinear().domain([-1, 1]).range([0, width]);
+        var yScale = d3.scaleLinear().domain([-1, 1]).range([height, 0]);
+
+        //var points = pointsArray.map(p => new Array(xScale(p.x), yScale(p.y).join(",")).join(" ");
+        var points = pointsArray.map(p => [xScale(p.x), yScale(p.y)].join(",")).join(" ");
 
         svg.selectAll("polygon")
             .data([pointsArray])
             .enter()
             .append("polygon")
-            .attr("points", function (d) {
-                return d.map(function (p) {
-                    return [xScale(p.x), yScale(p.y)].join(",");
-                }
-                ).join(" ");
-            })
+            .attr("points", points);
     },
 
     d3Draw: function (poly) {
