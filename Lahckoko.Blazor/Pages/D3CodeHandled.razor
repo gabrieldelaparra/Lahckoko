@@ -1,0 +1,55 @@
+﻿@page "/"
+@inject IJSRuntime JsRuntime;
+<h3>D3CodeHandled</h3>
+
+<svg id="d3-svg" width="@Width" height="@Height">
+
+</svg>
+
+@code {
+
+    public int Width { get; set; } = 500;
+    public int Height { get; set; } = 500;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("d3DrawFunctionsJS.setSvg", "#d3-svg");
+
+            const int length = 100;
+            var random = new Random();
+            var xAxis = Enumerable.Range(0, length).Select(x => ((double)x) / 100).ToArray();
+            var yAxis = Enumerable.Range(0, length).Select(x => 0.3 + random.NextDouble() * 0.7).ToArray();
+            //var yAxis = Enumerable.Range(0, length).Select(x => ((double)x)/100).ToArray();
+
+            var points = new List<D3.Point>();
+            for (var i = 0; i < length; i++)
+            {
+                points.Add(new D3.Point(xAxis[i], yAxis[i]));
+            }
+
+            await JsRuntime.InvokeVoidAsync("d3DrawFunctionsJS.drawPolygon", ToCircular(points));
+        }
+    }
+
+    public List<D3.Point> ToCircular(List<D3.Point> points)
+    {
+        var minX = points.Min(x => x.x);
+        var minY = points.Min(x => x.y);
+
+        var maxX = points.Max(x => x.x);
+        var maxY = points.Max(x => x.y);
+
+        var list = new List<D3.Point>();
+        foreach (var p in points)
+        {
+            const double pi = Math.PI;
+            var y = Math.Cos(p.x * 2 * pi) * p.y;
+            var x = Math.Sin(p.x * 2 * pi) * p.y;
+            list.Add(new D3.Point(x, y));
+        }
+
+        return list;
+    }
+}

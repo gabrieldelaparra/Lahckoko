@@ -1,0 +1,15 @@
+﻿svg {
+    top: 20px;
+    right: 20px;
+    bottom: 30px;
+    left: 50px;
+    /*If set here, they are not displayed in the css > d3 cannot access them.*/
+    /*width: 500px;
+    height: 500px;*/
+    /*For visualization only:*/
+    background-color: lightgray;
+}
+
+polygon {
+    fill: CadetBlue
+}
