@@ -32,7 +32,7 @@
             DateTime = first.X;
             TempValue = first.Y;
 
-            var dateTimeScale = new DateTimeLinearScale(new[] { TemperaturePoints.Min(x=>x.X), TemperaturePoints.Max(x => x.X) }, new double[] { 0, 1 });
+            var dateTimeScale = new DateTimeLinearScale(TemperaturePoints.Select(x=>x.X).ToArray(), new double[] { 0, 1 });
             var temperatureScale = new LinearScale(new double[] { 0, 20 }, new double[] { 0, 1 });
 
             var scaledPoints = TemperaturePoints.Select(p => new Point2D(dateTimeScale.Scale(p.X), temperatureScale.Scale(p.Y))).ToList();
