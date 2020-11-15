@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Lahckoko.Blazor.Services;
 using Lahckoko.Blazor.Services.GeoLocation;
+using Lahckoko.Blazor.Services.Temperature;
 
 namespace Lahckoko.Blazor
 {
@@ -27,6 +27,7 @@ namespace Lahckoko.Blazor
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddScoped<IGeoLocationService, JsGeoLocationService>();
+            services.AddScoped<ITemperatureService, MockTemperatureService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

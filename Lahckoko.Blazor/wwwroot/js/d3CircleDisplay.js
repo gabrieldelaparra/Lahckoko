@@ -14,6 +14,7 @@
 
     drawPolygon: function (pointsArray) {
 
+        //These could even be out of this function, or in the c# code;
         var xScale = d3.scaleLinear().domain([-1, 1]).range([0, width]);
         var yScale = d3.scaleLinear().domain([-1, 1]).range([height, 0]);
 

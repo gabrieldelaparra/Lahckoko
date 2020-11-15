@@ -22,4 +22,7 @@
   <ItemGroup>
     <Folder Include="Services\D3ViewHelper\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lahckoko.Core\Lahckoko.Core.csproj" />
+  </ItemGroup>
 </Project>
